@@ -39,7 +39,7 @@ Output one such table for a given set of values:
 >   counts <- replicateM tot $ liftM countCells $ cloneAt divs (A p)
 >   let bmax = maximum . map fst $ counts
 >       smax = maximum . map snd $ counts
->   let dist = [[countClones b s counts | s <- [0..bmax]] | b <- [0..smax]]
+>   let dist = [[countClones b s counts | s <- [0..smax]] | b <- [0..bmax]]
 >   putStr "% "
 >   putStrLn $ concat $ intersperse " " $ map show [r, gamma, m, lambda, t, fromIntegral tot]
 >   putStrLn $ "ts3(end+1) = " ++ (show t) ++ ";"
