@@ -34,7 +34,9 @@ until we get tired and end up monad-ifying:
 Output one such table for a given set of values:
 
 > matlabTable r gamma m lambda t tot = do
->   let p = Parameters r gamma m
+>   let rho = gamma / (1 + gamma)
+>       mu = rho / m
+>       p = Parameters r gamma mu
 >       divs = lambda*t
 >   counts <- replicateM tot $ liftM countCells $ cloneAt divs (A p)
 >   let bmax = maximum . map fst $ counts
