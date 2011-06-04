@@ -29,7 +29,7 @@ until we get tired and end up monad-ifying:
 >   progeny_p (C p) = [ ([], 1.0) ]
 >   lifetime_G_inv (A p) g = -(log (1-g))
 >   lifetime_G_inv (B p) g = -(log (1-g)) / gamma p
->   lifetime_G_inv (C p) g = -(log (1-g)) * gamma p / (m p * (1+gamma p))
+>   lifetime_G_inv (C p) g = -(log (1-g)) / gamma p * (m p * (1+gamma p))
 
 Output one such table for a given set of values:
 
@@ -37,11 +37,11 @@ Output one such table for a given set of values:
 >   let p = Parameters r gamma m
 >       divs = lambda*t
 >   counts <- replicateM tot $ liftM countCells $ cloneAt divs (A p)
->   let m = maximum . map fst $ counts
->       n = maximum . map snd $ counts
->   let dist = [[countClones b s counts | s <- [0..n]] | b <- [0..m]]
+>   let bmax = maximum . map fst $ counts
+>       smax = maximum . map snd $ counts
+>   let dist = [[countClones b s counts | s <- [0..bmax]] | b <- [0..smax]]
 >   putStr "% "
->   putStrLn $ concat $ intersperse " " $ map show [r, gamma, fromIntegral m, lambda, t, fromIntegral tot]
+>   putStrLn $ concat $ intersperse " " $ map show [r, gamma, m, lambda, t, fromIntegral tot]
 >   putStrLn $ "ts3(end+1) = " ++ (show t) ++ ";"
 >   putStrLn $ "normal{end+1} = ["
 >   printTable dist
